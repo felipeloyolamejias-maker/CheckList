@@ -90,7 +90,7 @@ const T = {
 };
 
 const SETTINGS_KEY = "flightChecklistSettings";
-const DEFAULT_SETTINGS = {whiteMode:true,milGreen:false,autoAdvance:true,floatDone:false,centerText:true,lang:"en"};
+const DEFAULT_SETTINGS = {whiteMode:true,milGreen:false,autoAdvance:true,floatDone:true,centerText:true,lang:"en"};
 
 function normalizeLang(lang){
   if(lang==="fr") return "es";
@@ -256,7 +256,7 @@ const PA28_SPEEDS = {
   ]
 };
 
-// ── C152 CHECKLIST NORMAL EN (Desde PDF) ──────────────────────────
+// ── C152 CHECKLIST NORMAL EN ──────────────────────────
 const C152_EN = {
   "PREFLIGHT INSPECTION": [
     "CABIN:",
@@ -438,7 +438,7 @@ const C152_EN = {
   ]
 };
 
-// ── C152 CHECKLIST NORMAL ES (Desde PDF) ──────────────────────────
+// ── C152 CHECKLIST NORMAL ES ──────────────────────────
 const C152_ES = {
   "INSPECCIÓN PREVUELO": [
     "CABINA:",
