@@ -65,7 +65,7 @@ const T = {
     settingsTitle:"SETTINGS",settingsDesc:"App preferences and language",
     whiteMode:"White Mode",milGreen:"Military Green",
     autoAdvance:"Auto-advance Phase",floatDone:"Float Completed Items",
-    centerText:"Centered Text",
+    centerText:"Centered Text", largeText:"Large Text",
     lang:"Language",newChecklist:"+ NEW CHECKLIST",editChecklist:"EDIT",
     deleteChecklist:"DELETE",checklistName:"Checklist Name",
     addPhase:"+ Add Phase",addItem:"+ Add Item",save:"SAVE",cancel:"CANCEL",
@@ -79,7 +79,7 @@ const T = {
     settingsTitle:"AJUSTES",settingsDesc:"Preferencias de la app e idioma",
     whiteMode:"Modo Blanco",milGreen:"Verde Militar",
     autoAdvance:"Avance automática de fase",floatDone:"Flotar elementos completados",
-    centerText:"Texto Centrado",
+    centerText:"Texto Centrado", largeText:"Texto Grande",
     lang:"Idioma",newChecklist:"+ NUEVA LISTA",editChecklist:"EDITAR",
     deleteChecklist:"ELIMINAR",checklistName:"Nombre de la lista",
     addPhase:"+ Añadir fase",addItem:"+ Añadir elemento",save:"GUARDAR",cancel:"CANCELAR",
@@ -90,7 +90,7 @@ const T = {
 };
 
 const SETTINGS_KEY = "flightChecklistSettings";
-const DEFAULT_SETTINGS = {whiteMode:true,milGreen:false,autoAdvance:true,floatDone:true,centerText:true,lang:"en"};
+const DEFAULT_SETTINGS = {whiteMode:true,milGreen:false,autoAdvance:true,floatDone:true,centerText:false,largeText:false,lang:"es"};
 
 function normalizeLang(lang){
   if(lang==="fr") return "es";
@@ -1308,6 +1308,7 @@ function SettingsPanel({onClose,settings,setSettings}){
           {k:"autoAdvance",label:t.autoAdvance},
           {k:"floatDone",label:t.floatDone},
           {k:"centerText",label:t.centerText},
+          {k:"largeText",label:t.largeText},
         ].map(({k,label})=>(
           <div key={k} onClick={()=>toggle(k)}
                style={{display:"flex",justifyContent:"space-between",alignItems:"center",
@@ -1552,7 +1553,7 @@ function EmergencySheet({emergencies, color, name, registration, onClose, settin
             return (
               <div key={idx} style={{background:`${emColor}0a`, border:`1px solid ${emColor}33`, borderRadius:6, padding:"12px 14px"}}>
                 <div style={{fontSize:14, fontWeight:"bold", color:emColor, marginBottom:8, letterSpacing:0.5}}>{title.replace("⚠","").trim()}</div>
-                <ul style={{margin:0, paddingLeft:20, color:text, fontSize:16, lineHeight:1.6}}>
+                <ul style={{margin:0, paddingLeft:20, color:text, fontSize:settings.largeText?18:16, lineHeight:1.6}}>
                   {steps.map((step, sIdx) => <li key={sIdx} style={{marginBottom:4}}>{step.trim()}</li>)}
                 </ul>
               </div>
@@ -1853,14 +1854,14 @@ function ChecklistScreen({aircraftId,onBack,onSettings,settings,customLists}){
                          border:`1px solid ${isConfirmed?"#4CAF5044":isWarn?"#FF174433":border}`,
                          transition:"all 0.2s ease-in-out"}}>
               {!isWarn&&(
-                <div style={{width:24,height:24,border:`2px solid ${(done||isCompleting)?"#4CAF50":accent+"66"}`,borderRadius:6,
+                <div style={{width:settings.largeText?30:24,height:settings.largeText?30:24,border:`2px solid ${(done||isCompleting)?"#4CAF50":accent+"66"}`,borderRadius:6,
                              flexShrink:0,background:(done||isCompleting)?"#4CAF50":"transparent",
                              display:"flex",alignItems:"center",justifyContent:"center",transition:"all 0.15s",marginTop:0}}>
-                  {(done||isCompleting)&&<span style={{color:"#000",fontSize:14,fontWeight:"bold",lineHeight:1}}>✓</span>}
+                  {(done||isCompleting)&&<span style={{color:"#000",fontSize:settings.largeText?18:14,fontWeight:"bold",lineHeight:1}}>✓</span>}
                 </div>
               )}
-              {!isWarn&&<span style={{fontSize:16,color:textDim,width:24,flexShrink:0,letterSpacing:1,paddingTop: settings.centerText ? 0 : 2,fontWeight:"bold", textAlign: settings.centerText ? "center" : "left"}}>{String(i+1).padStart(2,"0")}</span>}
-              <span style={{fontSize:isWarn?16:18,letterSpacing:0.2,fontWeight:isWarn?"bold":"normal",
+              {!isWarn&&<span style={{fontSize:settings.largeText?18:16,color:textDim,width:settings.largeText?28:24,flexShrink:0,letterSpacing:1,paddingTop: settings.centerText ? 0 : 2,fontWeight:"bold", textAlign: settings.centerText ? "center" : "left"}}>{String(i+1).padStart(2,"0")}</span>}
+              <span style={{fontSize:isWarn?(settings.largeText?18:16):(settings.largeText?24:18),letterSpacing:0.2,fontWeight:isWarn?"bold":"normal",
                             color:isConfirmed?"#4CAF50":isWarn?"#FF5252":text,
                             textDecoration:isConfirmed?"line-through":"none",
                             transition:"all 0.2s",flex:1,lineHeight:1.5,
