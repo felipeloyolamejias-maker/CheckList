@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
   <title>Flight Checklist</title>
-  <meta name="description" content="Aviation checklist app — bilingual EN/ES checklists for C152, PA-28 and C172 aircraft types."/>
+  <meta name="description" content="Aviation checklist app — bilingual EN/ES for C152, PA-28 and C172 CAPE Aircraft."/>
   <meta name="theme-color" content="#0a0e14"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
@@ -90,7 +90,7 @@ const T = {
 };
 
 const SETTINGS_KEY = "flightChecklistSettings";
-const DEFAULT_SETTINGS = {whiteMode:true,milGreen:false,autoAdvance:true,floatDone:true,centerText:false,lang:"es"};
+const DEFAULT_SETTINGS = {whiteMode:true,milGreen:false,autoAdvance:true,floatDone:false,centerText:true,lang:"en"};
 
 function normalizeLang(lang){
   if(lang==="fr") return "es";
